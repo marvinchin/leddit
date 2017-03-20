@@ -43,18 +43,61 @@ class ThreadManagerTest(unittest.TestCase):
         manager.newThread("Little") #id 1
         manager.newThread("Pigs")   #id 2
         manager.upvoteThread(2)
-        self.assertEqual(manager.head.toList(), [2, 0, 1])
+        self.assertEqual(manager.getAllThreadIds(), [2, 0, 1])
         manager.upvoteThread(2)
-        self.assertEqual(manager.head.toList(), [2, 0, 1])
+        self.assertEqual(manager.getAllThreadIds(), [2, 0, 1])
         manager.newThread("Oink")   #id 3
-        self.assertEqual(manager.head.toList(), [2, 0, 1, 3])
+        self.assertEqual(manager.getAllThreadIds(), [2, 0, 1, 3])
         manager.upvoteThread(3)
-        self.assertEqual(manager.head.toList(), [2, 3, 0, 1])
+        self.assertEqual(manager.getAllThreadIds(), [2, 3, 0, 1])
         manager.upvoteThread(3)
-        self.assertEqual(manager.head.toList(), [2, 3, 0, 1])
+        self.assertEqual(manager.getAllThreadIds(), [3, 2, 0, 1])
         manager.upvoteThread(3)
-        self.assertEqual(manager.head.toList(), [3, 2, 0, 1])
+        self.assertEqual(manager.getAllThreadIds(), [3, 2, 0, 1])
         self.assertEqual(manager.threads[3].score, 3)
+
+    def testDownvote(self):
+        manager = models.ThreadManager()
+        manager.newThread("Three")  #id 0
+        manager.newThread("Little") #id 1
+        manager.newThread("Pigs")   #id 2
+        manager.downvoteThread(2)
+        self.assertEqual(manager.getAllThreadIds(), [0, 1, 2])
+        self.assertEqual(manager.insertion.threadId, 1)
+        manager.newThread("Oink")   #id 3
+        self.assertEqual(manager.getAllThreadIds(), [0, 1, 3, 2])
+        manager.downvoteThread(1)
+        self.assertEqual(manager.getAllThreadIds(), [0, 3, 1, 2])
+        manager.downvoteThread(1)
+        self.assertEqual(manager.getAllThreadIds(), [0, 3, 2, 1])
+        self.assertEqual(manager.threads[1].score, -2)
+        manager.upvoteThread(3)
+        manager.upvoteThread(0)
+        self.assertEqual(manager.getAllThreadIds(), [0, 3, 2, 1])
+        self.assertEqual(manager.insertion.threadId, 3)
+        manager.upvoteThread(2)
+        self.assertEqual(manager.getAllThreadIds(), [0, 3, 2, 1])
+        self.assertEqual(manager.insertion.threadId, 2)
+
+    def testGetThreads(self):
+        manager = models.ThreadManager()
+        manager.newThread("Three")  #id 0
+        manager.newThread("Little") #id 1
+        manager.newThread("Pigs")   #id 2
+        manager.newThread("Oink")   #id 3
+        threads = manager.getThreads(1, 3)
+        ids = []
+        for t in threads:
+            ids.append(t.id)
+        self.assertEqual(ids, [1, 2])
+        manager.upvoteThread(3)
+        threads = manager.getThreads(1, 4)
+        ids = []
+        for t in threads:
+            ids.append(t.id)
+        self.assertEqual(ids, [0, 1, 2])
+
+
 
 if __name__ == "__main__":
     unittest.main();
