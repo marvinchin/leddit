@@ -4,6 +4,14 @@
   <h1> {{ thread.topic }} </h1>
   <br/>
   <h3>Score: {{ thread.score }} </h3>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Upvote</a>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Downvote</a>
+  <a class="btn btn-primary btn-lg"
+    href="{{ url_for("thread.upvote_thread", threadId = thread.id) }}"
+    role="button">
+    Upvote
+  </a>
+  <a class="btn btn-primary btn-lg"
+    href="{{ url_for("thread.downvote_thread", threadId = thread.id) }}"
+    role="button">
+    Downvote
+  </a>
 {% endblock %}
