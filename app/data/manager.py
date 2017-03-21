@@ -12,7 +12,7 @@ class ThreadManager:
         self.head = None    # init head of ranking linked list
         self.tail = None    # init tail of ranking linked list
         self.insertion = None   # init insertion point for new threads,
-                                # should be the first node with least positive score
+                                # should be the last node with least positive score
     """
     newThread creates a new thread with input topic
     """
@@ -32,12 +32,12 @@ class ThreadManager:
             self.head = node
             self.insertion = node
         else:
-            # there are other nodes, insert before node at insertion point
-            self.insertion.insertBefore(node)
-            if (self.insertion == self.head):
+            # there are other nodes, insert behind node at insertion point
+            self.insertion.insertAfter(node)
+            if (self.insertion == self.tail):
                 # insertion point is at the end of the list,
                 # update tail to inserted node
-                self.head = node
+                self.tail = node
             self.insertion = node
 
     """
