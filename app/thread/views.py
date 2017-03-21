@@ -16,3 +16,13 @@ def view_thread(threadId):
     thread = threadManager.getThread(threadId)
     title = "Thread {0}".format(threadId)
     return render_template('thread/thread.html', title = title, thread = thread)
+
+@thread.route('/upvote/<int:threadId>')
+def upvote_thread(threadId):
+    threadManager.upvoteThread(threadId)
+    return redirect(url_for('thread.view_thread', threadId = threadId))
+
+@thread.route('/downvote/<int:threadId>')
+def downvote_thread(threadId):
+    threadManager.downvoteThread(threadId)
+    return redirect(url_for('thread.view_thread', threadId = threadId))

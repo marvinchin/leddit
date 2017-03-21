@@ -12,8 +12,7 @@ def create_app():
 
     threadManager.newThread("Thread 0")
     threadManager.newThread("Thread 1")
-
-
+    threadManager.upvoteThread(1)
     Bootstrap(app)
 
     from .home import home as home_blueprint

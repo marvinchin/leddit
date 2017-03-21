@@ -52,6 +52,10 @@ class ThreadManager:
         if self.insertion == node and node.prevNode is not None:
             self.insertion = node.prevNode
 
+        # check if node is tail. Update if it is
+        if self.tail == node and node.prevNode is not None:
+            self.tail = node.prevNode
+
         if node == self.head:
             # already front of the list, no movement
             return
@@ -79,8 +83,12 @@ class ThreadManager:
             # position with score higher than node. Final position is after this
             considerNode.insertAfter(node)
             # check if considerNode is insertion point. Update if necessary
-            if (self.insertion == considerNode and thread.score >= 0):
+            if self.insertion == considerNode and thread.score >= 0:
                 self.insertion = node
+
+            # check if considerNode is tail. Update if necessary
+            if self.tail == considerNode:
+                self.tail = node
 
     """
     downvoteThread decreases score of thread with input id and adjusts the ordering
@@ -96,6 +104,10 @@ class ThreadManager:
                 self.insertion = node.prevNode
             else:
                 self.insertion = None
+
+        #check if node is the head. Update if necessary
+        if self.head == node and node.nextNode is not None:
+            self.head = node.nextNode
 
         if node == self.tail:
             # already tail of the list, no movement
@@ -127,6 +139,10 @@ class ThreadManager:
             if (node.prevNode is not None and self.insertion == node.prevNode
                 and thread.score >= 0):
                 self.insertion = node
+
+            #check if considerNode is the head. Update if necessary
+            if self.head == considerNode:
+                self.head = node
 
     """
     getThread returns the thread with input id
