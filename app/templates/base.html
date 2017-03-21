@@ -6,9 +6,11 @@
   <title>Leddit! | {{ title }}</title>
 </head>
 <body>
-  <div class = "container-fluid center">
-    <div class="jumbotron">
-      <h1 align = "center"> THE WENXIN FAN CLUB </h1>
+  <div class = "container center">
+    <div class = "jumbotron">
+      <a href = "{{ url_for('home.homepage') }}">
+        <h1 align = "center"> THE WENXIN FAN CLUB </h1>
+      </a>
     </div>
     {% block body %}
     {% endblock %}

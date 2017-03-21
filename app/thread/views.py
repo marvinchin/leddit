@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from forms import ThreadForm
 from .. import threadManager
 from . import thread
@@ -7,7 +7,11 @@ from . import thread
 def add_thread():
     form = ThreadForm()
     if form.validate_on_submit():
-        threadManager.newThread(form.topic.data)
+        try:
+            threadManager.newThread(form.topic.data)
+        except ValueError:
+            flash("Please limit topic to 255 characters")
+            return redirect(url_for('thread.add_thread'))
         return redirect(url_for('home.homepage'))
     return render_template('thread/add.html', title = "New Thread", form = form)
 

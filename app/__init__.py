@@ -9,10 +9,10 @@ threadManager = ThreadManager()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "thisisverysecret"
+    for i in range(0, 30):
+        threadManager.newThread("Thread {0}".format(i))
 
-    threadManager.newThread("Thread 0")
-    threadManager.newThread("Thread 1")
-    threadManager.upvoteThread(1)
+    threadManager.upvoteThread(26)
     Bootstrap(app)
 
     from .home import home as home_blueprint

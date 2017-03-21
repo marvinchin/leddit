@@ -4,20 +4,33 @@
   {% if threads|length == 0 %}
     <h2> No Threads Yet! </h2>
   {% else %}
-  <table width="100%">
-    <thead>
-      <tr>
-        <th width="75%">Topic</th>
-        <th width="25%">Score</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for thread in threads %}
-      <tr>
-        <td>{{ thread.topic }}</td>
-        <td>{{ thread.score }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-  {% endif %}
+  <div class = "span6">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th width = "75%">Topic</th>
+          <th width = "25%">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for thread in threads %}
+        <tr>
+          <td class = "fixed-width">
+            <a href = "{{ url_for('thread.view_thread', threadId = thread.id) }}">
+              {{ thread.topic }}
+            </a>
+          </td>
+          <td class = "fixed-width">{{ thread.score }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    <br/>
+    <a class = "btn btn-primary btn-block"
+      href = "{{ url_for('thread.add_thread') }}"
+      role = "button">
+      New Thread
+    </a>
+  </div>
 {% endblock %}

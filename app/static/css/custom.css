@@ -3,3 +3,18 @@
     width: 50%;
     padding: 10px;
 }
+
+.table {
+    table-layout: fixed;
+    overflow: hidden;
+
+}
+
+.fixed-width {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topic {
+  word-wrap: break-word;
+}
