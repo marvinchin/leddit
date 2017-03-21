@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href = "{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
   <title>Leddit! | {{ title }}</title>
 </head>
 <body>
-  <h1> PLACEHOLDER TEXT </h1>
-  {% block body %}
-  {% endblock %}
+  <div class = "container-fluid center">
+    <div class="jumbotron">
+      <h1 align = "center"> THE WENXIN FAN CLUB </h1>
+    </div>
+    {% block body %}
+    {% endblock %}
+  </div>
 </body>
 </html>

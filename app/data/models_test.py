@@ -98,6 +98,11 @@ class ThreadthreadManagerTest(unittest.TestCase):
             ids.append(t.id)
         self.assertEqual(ids, [0, 1, 2])
 
+    def testGetThread(self):
+        threadManager = manager.ThreadManager()
+        threadManager.newThread("Hello")
+        self.assertEqual(threadManager.getThread(0).topic, "Hello")
+
 
 
 if __name__ == "__main__":

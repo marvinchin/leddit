@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Thread{% endblock %}
+{% block body %}
+  <h1> {{ thread.topic }} </h1>
+  <br/>
+  <h3>Score: {{ thread.score }} </h3>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Upvote</a>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Downvote</a>
+{% endblock %}

@@ -129,6 +129,13 @@ class ThreadManager:
                 self.insertion = node
 
     """
+    getThread returns the thread with input id
+    """
+    def getThread(self, threadId):
+        return self.threads[threadId]
+
+
+    """
     getThreads returns the list of threads of rank start(inclusive) to end(exclusive)
     ordered by rank
     """
@@ -138,8 +145,7 @@ class ThreadManager:
         currNode = self.head
         while (i < end and currNode is not None):
             if i >= start:
-                nextThread = self.threads[currNode.threadId]
-                result.append(nextThread)
+                result.append(self.getThread(currNode.threadId))
             i += 1
             currNode = currNode.nextNode
         return result

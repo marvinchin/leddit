@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block body %}
-  <h1> Hello World! </h1>
+  {% if threads|length == 0 %}
+    <h2> No Threads Yet! </h2>
+  {% else %}
+  <table width="100%">
+    <thead>
+      <tr>
+        <th width="75%">Topic</th>
+        <th width="25%">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for thread in threads %}
+      <tr>
+        <td>{{ thread.topic }}</td>
+        <td>{{ thread.score }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  {% endif %}
 {% endblock %}
