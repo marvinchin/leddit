@@ -4,6 +4,18 @@ Reddit/Digg clone for Carousell Coding Quiz
 A topic aggregator application that allows users to submit and up/downvote
 topics. Homepage displays the top 20 topics ranked by their vote scores.  
 
+## Setup
+  Create virtual environment  
+  `virtualenv venv`  
+  Activate virtual environment  
+  `source venv/bin/activate`  
+  Install requirements  
+  `pip install -r requirements.txt`  
+  Configure flask  
+  `export FLASK_APP=run.py`  
+  Run flask application  
+  `flask run`  
+
 ## Components
 
 ### Thread

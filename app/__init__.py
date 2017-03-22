@@ -9,8 +9,6 @@ threadManager = ThreadManager()
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('../config.cfg')
-    for i in range(0, 30):
-        threadManager.newThread("Thread {0}".format(i))
 
     Bootstrap(app)
 
