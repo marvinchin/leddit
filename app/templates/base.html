@@ -6,12 +6,13 @@
   <title>Leddit! | {{ title }}</title>
 </head>
 <body>
+  <div class = "jumbotron">
+    <a href = "{{ url_for('home.homepage') }}">
+      <h1 align = "center"> Leddit </h1>
+    </a>
+    <h3 align = "center"> kinda like reddit </h3>
+  </div>
   <div class = "container center">
-    <div class = "jumbotron">
-      <a href = "{{ url_for('home.homepage') }}">
-        <h1 align = "center"> THE WENXIN FAN CLUB </h1>
-      </a>
-    </div>
     {% block body %}
     {% endblock %}
   </div>
