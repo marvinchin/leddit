@@ -25,14 +25,14 @@ position of each thread in the list. Upon any change to the score of a thread,
 we remove the affected thread from the list, search up/down from its original
 position until we find a suitable position to reinsert the node.
 
-###### Insertion
+##### Insertion
 A standard linked list implementation, however, would require O(n) time to find
 the appropriate position to insert a new thread into the list. Thus we include
 an additional pointer which keeps track of the point of insertion as threads
 are added and updated. This allows us to provide constant time addition of new
 threads.
 
-###### Update
+##### Update
 Although the
 complexity of this operation is O(n) using a linked list, this only happens if
 there are large numbers of threads with the same score clustered together. In
@@ -43,7 +43,7 @@ assumption a linked list implementation is likely to outperform a tree structure
 which requires O(log n) for every update, especially where number of threads is
 large.
 
-###### Retrieval
+##### Retrieval
 Our application requires us to retrieve the top 20 threads to be displayed on the
 front page. With the linked list implementation, this retrieval can be done in
 constant time. However, with pagination involved, to display threads ranked from

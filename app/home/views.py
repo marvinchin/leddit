@@ -4,20 +4,22 @@ from . import home
 from .. import threadManager
 
 """
-Homepage that displays top 20 threads
+Homepage that displays threads ordered by score
 """
-@home.route('/')
-def homepage():
-    threads = threadManager.getThreads(0, 20)
-    return render_template('home/index.html', title="Title", threads=threads)
+@home.route('/', defaults = {'pageNo' : 0})
+@home.route('/<int:pageNo>')
+def homepage(pageNo):
+    threads = threadManager.getThreads(pageNo * 20, (pageNo + 1) * 20)
+    return render_template('home/index.html', title = "Home",
+        pageNo = pageNo, threads = threads)
 
 """
 Upvote functionality for homepage, updates and redirects back to homepage
 """
-@home.route('/upvote/<int:threadId>')
-def upvote_thread(threadId):
+@home.route('/upvote/<int:threadId>/<int:pageNo>')
+def upvote_thread(threadId, pageNo):
     threadManager.upvoteThread(threadId)
-    return redirect(url_for('home.homepage'))
+    return redirect(url_for('home.homepage', pageNo = pageNo))
 
 """
 Downvote functionality for homepage, updates and redirects back to homepage

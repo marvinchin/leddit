@@ -24,16 +24,18 @@
           </td>
           <td class = "fixed-width">{{ thread.score }}</td>
           <td>
-            <a href = "{{ url_for('home.upvote_thread', threadId = thread.id) }}">
+            <a href = "{{ url_for('home.upvote_thread', threadId = thread.id,
+              pageNo = pageNo) }}">
               <button type = "button" class = "btn btn-default">
-                <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                <span class = "glyphicon glyphicon-circle-arrow-up"></span>
               </button>
             </a>
           </td>
           <td>
-            <a href = "{{ url_for('home.downvote_thread', threadId = thread.id) }}">
+            <a href = "{{ url_for('home.downvote_thread', threadId = thread.id,
+              pageNo = pageNo) }}">
               <button type = "button" class = "btn btn-default">
-                <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                <span class = "glyphicon glyphicon-circle-arrow-down"></span>
               </button>
             </a>
           </td>
@@ -42,7 +44,26 @@
       </tbody>
     </table>
     {% endif %}
-    <br/>
+    <nav>
+      <ul class = "pager">
+        {% if pageNo == 0 %}
+          <li class = "previous disabled">
+            <a href = #>Previous Page</a>
+          </li>
+        {% else %}
+          <li class = "previous">
+            <a href = "{{ url_for('home.homepage', pageNo = pageNo - 1) }}">
+            Previous Page
+            </a>
+          </li>
+        {% endif %}
+        <li class = "next">
+          <a href = "{{ url_for('home.homepage', pageNo = pageNo + 1) }}">
+            Next Page
+          </a>
+        </li>
+      </ul>
+    </nav>
     <a class = "btn btn-primary btn-block"
       href = "{{ url_for('thread.add_thread') }}"
       role = "button">
