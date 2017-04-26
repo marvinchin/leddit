@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 
 from . import home
 from .. import threadManager
@@ -18,7 +18,11 @@ Upvote functionality for homepage, updates and redirects back to homepage
 """
 @home.route('/upvote/<int:threadId>/<int:pageNo>')
 def upvote_thread(threadId, pageNo):
-    threadManager.upvoteThread(threadId)
+    try:
+        threadManager.upvoteThread(threadId)
+    except IndexError:
+        flash("Thread does not exist!")
+        return redirect(url_for('home.homepage'))
     return redirect(url_for('home.homepage', pageNo = pageNo))
 
 """
@@ -26,5 +30,9 @@ Downvote functionality for homepage, updates and redirects back to homepage
 """
 @home.route('/downvote/<int:threadId>')
 def downvote_thread(threadId):
-    threadManager.downvoteThread(threadId)
+    try:
+        threadManager.downvoteThread(threadId)
+    except IndexError:
+        flash("Thread does not exist!")
+        return redirect(url_for('home.homepage'))
     return redirect(url_for('home.homepage'))

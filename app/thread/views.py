@@ -24,7 +24,11 @@ Page to view thread with given id
 """
 @thread.route('/<int:threadId>')
 def view_thread(threadId):
-    thread = threadManager.getThread(threadId)
+    try:
+        thread = threadManager.getThread(threadId)
+    except IndexError:
+        flash("Thread does not exist!")
+        return redirect(url_for('home.homepage'))
     title = "Thread {0}".format(threadId)
     return render_template('thread/thread.html', title = title, thread = thread)
 
@@ -33,7 +37,11 @@ Upvote functionality for thread page, redirects to thread page
 """
 @thread.route('/upvote/<int:threadId>')
 def upvote_thread(threadId):
-    threadManager.upvoteThread(threadId)
+    try:
+        threadManager.upvoteThread(threadId)
+    except IndexError:
+        flash("Thread does not exist!")
+        return redirect(url_for('home.homepage'))
     return redirect(url_for('thread.view_thread', threadId = threadId))
 
 """
@@ -41,5 +49,9 @@ Downvote functionality for thread page, redirects to thread page
 """
 @thread.route('/downvote/<int:threadId>')
 def downvote_thread(threadId):
-    threadManager.downvoteThread(threadId)
+    try:
+        threadManager.downvoteThread(threadId)
+    except IndexError:
+        flash("Thread does not exist!")
+        return redirect(url_for('home.homepage'))
     return redirect(url_for('thread.view_thread', threadId = threadId))

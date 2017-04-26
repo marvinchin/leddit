@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block body %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
   {% if threads|length == 0 %}
     <h2> No Threads Yet! </h2>
   {% else %}

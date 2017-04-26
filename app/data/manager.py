@@ -51,6 +51,7 @@ class ThreadManager:
     upvoteThread increases score of thread with input id and adjusts the ordering
     """
     def upvoteThread(self, threadId):
+        self.checkValidId(threadId)
         thread = self.getThread(threadId)
         thread.score += 1
         # move the nodes to maintain ordering of threads
@@ -113,6 +114,7 @@ class ThreadManager:
     downvoteThread decreases score of thread with input id and adjusts the ordering
     """
     def downvoteThread(self, threadId):
+        self.checkValidId(threadId)
         thread = self.getThread(threadId)
         thread.score -= 1
         # move the nodes to maintain ordering of threads
@@ -183,6 +185,7 @@ class ThreadManager:
     getThread returns the thread with input id
     """
     def getThread(self, threadId):
+        self.checkValidId(threadId)
         return self.threads[threadId]
 
 
@@ -215,6 +218,15 @@ class ThreadManager:
             result.append(currNode.threadId)
             currNode = currNode.nextNode
         return result
+
+    """
+    checkValidId checks if the input threadId is valid. Raises Index Error if
+    it is not
+    """
+    def checkValidId(self, threadId):
+        numThreads = len(self.threads)
+        if (threadId < 0 or threadId >= numThreads):
+            raise IndexError('InvalidThreadId')
 
 
 """
